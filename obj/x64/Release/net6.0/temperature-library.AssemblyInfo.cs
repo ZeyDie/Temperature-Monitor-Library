@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TemperatureLibrary")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da010d3101da34129a7a05ea1e2f9766501a48bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("TemperatureLibrary")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TemperatureLibrary")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
