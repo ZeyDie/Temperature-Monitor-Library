@@ -1,5 +1,0 @@
-C:\TemperatureApp\TemperatureLibrary\obj\x64\Release\netcoreapp3.1\temperature-library.csproj.AssemblyReference.cache
-C:\TemperatureApp\TemperatureLibrary\obj\x64\Release\netcoreapp3.1\temperature-library.GeneratedMSBuildEditorConfig.editorconfig
-C:\TemperatureApp\TemperatureLibrary\obj\x64\Release\netcoreapp3.1\temperature-library.AssemblyInfoInputs.cache
-C:\TemperatureApp\TemperatureLibrary\obj\x64\Release\netcoreapp3.1\temperature-library.AssemblyInfo.cs
-C:\TemperatureApp\TemperatureLibrary\obj\x64\Release\netcoreapp3.1\temperature-library.csproj.CoreCompileInputs.cache

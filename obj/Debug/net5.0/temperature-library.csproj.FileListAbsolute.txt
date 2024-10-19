@@ -1,5 +1,0 @@
-E:\ZeyDie\C#\temperature-library\obj\Debug\net5.0\temperature-library.csproj.AssemblyReference.cache
-E:\ZeyDie\C#\temperature-library\obj\Debug\net5.0\temperature-library.GeneratedMSBuildEditorConfig.editorconfig
-E:\ZeyDie\C#\temperature-library\obj\Debug\net5.0\temperature-library.AssemblyInfoInputs.cache
-E:\ZeyDie\C#\temperature-library\obj\Debug\net5.0\temperature-library.AssemblyInfo.cs
-E:\ZeyDie\C#\temperature-library\obj\Debug\net5.0\temperature-library.csproj.CoreCompileInputs.cache
