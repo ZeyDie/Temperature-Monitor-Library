@@ -1,4 +1,5 @@
 ﻿using LibreHardwareMonitor.Hardware;
+using System.Text;
 
 namespace TemperatureLibrary.LibsAPI
 {
@@ -19,9 +20,28 @@ namespace TemperatureLibrary.LibsAPI
                     subHardware.Accept(this);
             }
 
-            public void VisitSensor(ISensor sensor) { }
+            public void VisitSensor(ISensor sensor) { 
+               
+            }
 
             public void VisitParameter(IParameter parameter) { }
+        }
+    
+        public static async void SendComputerData(string url, string json)
+        {
+            using (var client = new HttpClient())
+            {
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                try
+                {
+                    await client.PostAsync(url, content);
+                }
+                catch (HttpRequestException exception)
+                {
+                    Console.WriteLine("Ошибка при отправке запроса: " + exception.Message);
+                }
+            }
         }
     }
 }

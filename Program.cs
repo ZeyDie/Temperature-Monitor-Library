@@ -1,45 +1,43 @@
-﻿using LibreHardwareMonitor.Hardware;
-using System.Text.Json;
-using TemperatureLibrary.Sensors;
-using static TemperatureLibrary.Sensors.Temperature;
+﻿using System.Text.Json;
+using TemperatureLibrary.Data;
+using System.Reflection;
+using TemperatureLibrary.LibsAPI;
 
 namespace TemperatureLibrary
 {
     public class Programm {
-        private struct ComputerData
-        {
-            public Data cpu { get; set; }
-            public Data gpu { get; set; }
+        public static string name = "Temperature Library";
+        public static string location = Assembly.GetExecutingAssembly().Location;
 
-            public ComputerData(Data cpu, Data gpu)
-            {
-                this.cpu = cpu;
-                this.gpu = gpu;
-            }
-        }
+        private static string configPath = "config.json";
+
+        private static ConsoleHider consoleHider = new();
+        private static StartupManagerWindows startupManagerWindows = new();
+
+        private static TemperatureLibrary temperatureLibrary = new();
 
         public static void Main(String[] args)
         {
-            Temperature.Load();
+            consoleHider.HideWindow();
 
-            var cpu = Temperature.GetTemperature(HardwareType.Cpu);
+            startupManagerWindows.Startup = startupManagerWindows.IsAvailable;
 
-            var gpuIntel = Temperature.GetTemperature(HardwareType.GpuIntel);
-            var gpuAMD = Temperature.GetTemperature(HardwareType.GpuAmd);
-            var gpuNvidia = Temperature.GetTemperature(HardwareType.GpuNvidia);
+            if (!File.Exists(configPath))
+            {
+                using var streamWriter = new StreamWriter(configPath, true);
 
-            var gpu = new Data();
+                streamWriter.Write(JsonSerializer.Serialize(
+                    new ConfigData(
+                        "http://localhost:3666/api/v1/temperature",
+                        "typeHereTokenOfBot",
+                        5 * 1000
+                    )
+                ));
+            }
 
-            if (gpuIntel.avgFloat() != 0)
-                gpu = gpuIntel;
-            if (gpuAMD.avgFloat() != 0)
-                gpu = gpuAMD;
-            if (gpuNvidia.avgFloat() != 0)
-                gpu = gpuNvidia;
+            var configData = JsonSerializer.Deserialize<ConfigData>(File.ReadAllText(configPath));
 
-            Console.WriteLine(JsonSerializer.Serialize(new ComputerData(cpu, gpu)));
-
-            Temperature.Close();
+            temperatureLibrary.Launch(configData);
         }
     }
 }
