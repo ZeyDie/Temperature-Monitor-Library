@@ -18,7 +18,8 @@ namespace TemperatureLibrary
 
         public static void Main(String[] args)
         {
-            consoleHider.HideWindow();
+            if (!args.ToList().Contains("-nohide"))
+                consoleHider.HideWindow();
 
             startupManagerWindows.Startup = startupManagerWindows.IsAvailable;
 
@@ -26,13 +27,15 @@ namespace TemperatureLibrary
             {
                 using var streamWriter = new StreamWriter(configPath, true);
 
-                streamWriter.Write(JsonSerializer.Serialize(
-                    new ConfigData(
-                        "http://localhost:3666/api/v1/temperature",
-                        "typeHereTokenOfBot",
-                        5 * 1000
+                streamWriter.Write(
+                    JsonSerializer.Serialize(
+                        new ConfigData(
+                            "http://localhost:8100/api/v2/temperature",
+                            "typeHereTokenOfBot",
+                            5 * 1000
+                        )
                     )
-                ));
+                );
             }
 
             var configData = JsonSerializer.Deserialize<ConfigData>(File.ReadAllText(configPath));

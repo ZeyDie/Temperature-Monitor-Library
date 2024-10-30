@@ -29,7 +29,11 @@ namespace TemperatureLibrary
 
                     computerData.token = configData.token;
 
-                    LHMApi.SendComputerData(configData.url, JsonSerializer.Serialize(computerData));
+                    var json = JsonSerializer.Serialize(computerData);
+
+                    Console.WriteLine(json);
+
+                    LHMApi.SendComputerData(configData.url, json);
                 }
             );
             timer.Start();
@@ -50,11 +54,11 @@ namespace TemperatureLibrary
 
             var gpu = new TemperatureData();
 
-            if (gpuIntel.avgFloat() != 0)
+            if (gpuIntel.hardwares.Count > 0)
                 gpu = gpuIntel;
-            if (gpuAMD.avgFloat() != 0)
+            if (gpuAMD.hardwares.Count > 0)
                 gpu = gpuAMD;
-            if (gpuNvidia.avgFloat() != 0)
+            if (gpuNvidia.hardwares.Count > 0)
                 gpu = gpuNvidia;
 
             return new ComputerData(cpu, gpu);

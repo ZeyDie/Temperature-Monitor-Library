@@ -23,38 +23,18 @@ namespace TemperatureLibrary.Sensors
                                 subHardware.Update();
 
                                 var name = sensor.Name;
-                                var value = sensor.Value.GetValueOrDefault();
+                                var value = sensor.Value.GetValueOrDefault().ToString("0");
 
-                                if (name.Contains("Max"))
-                                    data.max = value.ToString("0");
-                                else if (name.Contains("Average") || name.Contains("GPU"))
-                                    data.avg = value.ToString("0");
-                                else if (data.minFloat() > value || data.minFloat() == 0)
-                                    data.min = value.ToString("0");
+                                data.hardwares.Add(name, value);
                             }
                     foreach (var sensor in hardware.Sensors)
                         if (sensor.SensorType == SensorType.Temperature)
                         {
                             var name = sensor.Name;
-                            var value = sensor.Value.GetValueOrDefault();
+                            var value = sensor.Value.GetValueOrDefault().ToString("0");
 
-                            if (name.Contains("Max"))
-                                data.max = value.ToString("0");
-                            else if (name.Contains("Average") || name.Contains("GPU"))
-                                data.avg = value.ToString("0");
-                            else if (data.minFloat() > value || data.minFloat() == 0)
-                                data.min = value.ToString("0");
+                            data.hardwares.Add(name, value);
                         }
-
-                    if (data.avgFloat() == 0)
-                    {
-                        float max = data.maxFloat();
-                        float min = data.minFloat();
-
-                        float avg = (float)((max + min) / 2.0);
-
-                        data.avg = avg.ToString("0");
-                    }
 
                     return data;
                 }
