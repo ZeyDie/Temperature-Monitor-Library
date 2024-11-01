@@ -144,7 +144,7 @@ public class StartupManagerWindows
         TaskDefinition taskDefinition = TaskService.Instance.NewTask();
         taskDefinition.RegistrationInfo.Description = "Starts TemperatureLibrary on Windows startup.";
 
-        taskDefinition.Triggers.Add(new LogonTrigger());
+        taskDefinition.Triggers.Add(new BootTrigger());
 
         taskDefinition.Settings.StartWhenAvailable = true;
         taskDefinition.Settings.DisallowStartIfOnBatteries = false;
