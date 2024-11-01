@@ -144,7 +144,11 @@ public class StartupManagerWindows
         TaskDefinition taskDefinition = TaskService.Instance.NewTask();
         taskDefinition.RegistrationInfo.Description = "Starts TemperatureLibrary on Windows startup.";
 
-        taskDefinition.Triggers.Add(new BootTrigger());
+        BootTrigger bootTrigger = new BootTrigger();
+        bootTrigger.Delay = TimeSpan.FromMinutes(1);
+
+        taskDefinition.Triggers.Add(bootTrigger);
+
 
         taskDefinition.Settings.StartWhenAvailable = true;
         taskDefinition.Settings.DisallowStartIfOnBatteries = false;
@@ -152,8 +156,9 @@ public class StartupManagerWindows
         taskDefinition.Settings.ExecutionTimeLimit = TimeSpan.Zero;
         taskDefinition.Settings.AllowHardTerminate = false;
 
+        taskDefinition.Principal.UserId = "SYSTEM";
         taskDefinition.Principal.RunLevel = TaskRunLevel.Highest;
-        taskDefinition.Principal.LogonType = TaskLogonType.InteractiveToken;
+        taskDefinition.Principal.LogonType = TaskLogonType.ServiceAccount;
 
         taskDefinition.Actions.Add(new ExecAction(executablePath, "", Path.GetDirectoryName(executablePath)));
 
